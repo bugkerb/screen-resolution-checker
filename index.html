@@ -265,6 +265,61 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="app.js"></script>
+    <script>
+        (function() {
+            'use strict';
+
+            const screenResolution = document.getElementById('screen-resolution');
+            const availableScreen = document.getElementById('available-screen');
+            const viewportSize = document.getElementById('viewport-size');
+            const pixelRatio = document.getElementById('pixel-ratio');
+            const screenWidth = document.getElementById('screen-width');
+            const screenHeight = document.getElementById('screen-height');
+            const colorDepth = document.getElementById('color-depth');
+            const orientation = document.getElementById('orientation');
+            const touchSupport = document.getElementById('touch-support');
+
+            function formatNumber(num) {
+                return num.toLocaleString();
+            }
+
+            function getOrientation() {
+                const isLandscape = window.innerWidth > window.innerHeight;
+                return isLandscape ? 'Landscape' : 'Portrait';
+            }
+
+            function updateDisplay() {
+                const screenW = window.screen.width;
+                const screenH = window.screen.height;
+                screenResolution.textContent = `${screenW} × ${screenH}`;
+
+                const availW = window.screen.availWidth;
+                const availH = window.screen.availHeight;
+                availableScreen.textContent = `${availW} × ${availH}`;
+
+                const viewportW = window.innerWidth;
+                const viewportH = window.innerHeight;
+                viewportSize.textContent = `${viewportW} × ${viewportH}`;
+
+                const dpr = window.devicePixelRatio || 1;
+                pixelRatio.textContent = dpr.toFixed(2);
+
+                screenWidth.textContent = `${formatNumber(screenW)} px`;
+                screenHeight.textContent = `${formatNumber(screenH)} px`;
+                
+                colorDepth.textContent = `${window.screen.colorDepth} bit`;
+                
+                orientation.textContent = getOrientation();
+
+                const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+                touchSupport.textContent = hasTouch ? 'Yes' : 'No';
+            }
+
+            updateDisplay();
+
+            window.addEventListener('resize', updateDisplay);
+            window.addEventListener('orientationchange', updateDisplay);
+        })();
+    </script>
 </body>
 </html>
