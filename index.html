@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Screen Resolution Checker | Check Your Display Size Instantly</title>
+    <meta name="description" content="Check your screen resolution, display size, and viewport dimensions instantly. Supports live resize detection for desktop and mobile devices.">
+    <meta name="keywords" content="screen resolution checker, display size, viewport dimensions, screen width, screen height">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Screen Resolution Checker | Check Your Display Size Instantly">
+    <meta property="og:description" content="Check your screen resolution, display size, and viewport dimensions instantly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://screen-resolution-checker.vercel.app/">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Screen Resolution Checker">
+    <meta name="twitter:description" content="Check your screen resolution, display size, and viewport dimensions instantly.">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://screen-resolution-checker.vercel.app/">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent: #3b82f6;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .resolution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .resolution-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-value {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .card-detail {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .device-info {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            margin-top: 1.5rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: var(--text-secondary);
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #10b981;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🖥️ Screen Resolution Checker</h1>
+            <p class="subtitle">Check your display size and viewport dimensions instantly</p>
+            <div class="live-indicator">
+                <span class="live-dot"></span>
+                Live updates enabled
+            </div>
+        </header>
+
+        <main>
+            <div class="resolution-grid">
+                <div class="resolution-card">
+                    <div class="card-title">Screen Resolution</div>
+                    <div class="card-value" id="screen-resolution">--</div>
+                    <div class="card-detail">Total display pixels</div>
+                </div>
+
+                <div class="resolution-card">
+                    <div class="card-title">Available Screen</div>
+                    <div class="card-value" id="available-screen">--</div>
+                    <div class="card-detail">Minus taskbar/system bar</div>
+                </div>
+
+                <div class="resolution-card">
+                    <div class="card-title">Viewport Size</div>
+                    <div class="card-value" id="viewport-size">--</div>
+                    <div class="card-detail">Browser window area</div>
+                </div>
+
+                <div class="resolution-card">
+                    <div class="card-title">Device Pixel Ratio</div>
+                    <div class="card-value" id="pixel-ratio">--</div>
+                    <div class="card-detail">High-DPI scaling</div>
+                </div>
+            </div>
+
+            <div class="device-info">
+                <div class="info-row">
+                    <span class="info-label">Screen Width</span>
+                    <span class="info-value" id="screen-width">--</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Screen Height</span>
+                    <span class="info-value" id="screen-height">--</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Color Depth</span>
+                    <span class="info-value" id="color-depth">--</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Orientation</span>
+                    <span class="info-value" id="orientation">--</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Touch Support</span>
+                    <span class="info-value" id="touch-support">--</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>Resize your browser or rotate your device to see real-time updates</p>
+        <p style="margin-top: 0.5rem;">
+            No registration required • Instant results
+        </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
